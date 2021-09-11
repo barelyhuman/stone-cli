@@ -1,0 +1,58 @@
+{
+  "name": "@barelyhuman/stone-cli",
+  "version": "0.0.0",
+  "main": "dist/cli.js",
+  "bin": {
+    "stone-cli": "dist/cli.js"
+  },
+  "source": "src/server.js",
+  "license": "MIT",
+  "repository": "git@github.com:barelyhuman/stone-cli.git",
+  "author": "Reaper <ahoy@barelyhuman.dev>",
+  "files": [
+    "dist/*"
+  ],
+  "scripts": {
+    "build": "wrap",
+    "dev:server": "nodemon src/cli.js",
+    "dev:bundle": "wrap -w",
+    "dev": "concurrently 'yarn:dev:*'",
+    "fix": "wrap -f",
+    "size": "GITHUB_TOKEN='' bundlesize"
+  },
+  "wrap": {
+    "external": [
+      "http",
+      "fs",
+      "path"
+    ]
+  },
+  "bundlesize": [
+    {
+      "path": "dist/cli.js",
+      "limit": "4 KB",
+      "compression": "gzip"
+    },
+    {
+      "path": "dist/cli.js",
+      "limit": "4 KB",
+      "compression": "brotli"
+    }
+  ],
+  "publishConfig": {
+    "access": "public"
+  },
+  "dependencies": {
+    "css": "^3.0.0",
+    "mri": "^1.1.6"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.15.5",
+    "@barelyhuman/wrap": "^0.0.8-1",
+    "@rollup/plugin-babel": "^5.3.0",
+    "bundlesize": "^0.18.1",
+    "concurrently": "^6.2.1",
+    "rollup": "^2.56.3",
+    "rollup-plugin-terser": "^7.0.2"
+  }
+}

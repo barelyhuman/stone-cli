@@ -21,7 +21,7 @@ A cli that currently works with the [`CSSWebIOAdaptor`](https://github.com/barel
   $ stone-cli [flags]
 
     > flags
-     -p --port Change the port the server run's on (default: ${DEFAULT_PORT})
+     -p --port Change the port the server run's on (default: 5000)
 
 
 ```

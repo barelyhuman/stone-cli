@@ -43,8 +43,8 @@
     "access": "public"
   },
   "dependencies": {
-    "css": "^3.0.0",
-    "mri": "^1.1.6"
+    "mri": "^1.1.6",
+    "stylis": "^4.0.10"
   },
   "devDependencies": {
     "@babel/core": "^7.15.5",

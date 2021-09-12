@@ -4,6 +4,7 @@ import path from "path";
 import mri from "mri";
 import { parseBody } from "./lib/parse-body";
 import { updateCSS } from "./lib/update-css";
+import { REQUEST, createRouter } from "./lib/router";
 
 const DEFAULT_PORT = 5000;
 
@@ -15,8 +16,12 @@ const bold = (text) => {
   return `\x1b[36m\x1b[1m` + text + `\x1b[0m`;
 };
 
+let router = createRouter();
+
 function cli() {
-  const server = http.createServer(listener);
+  const server = http.createServer((req, res) => {
+    router.set(req, res);
+  });
   const { port } = parseArgs();
   const _port = port || DEFAULT_PORT;
   server.listen(_port, () => {
@@ -54,19 +59,16 @@ function printUsage() {
   `);
 }
 
-async function listener(req, res) {
-  try {
-    if (req.method !== "POST") {
-      return statusResponse(req, res);
-    }
+router.listener.on(REQUEST, () => {
+  router.get("/", statusResponse);
+
+  router.post("/css", async (req, res) => {
     const body = await parseBody(req, res);
     const data = JSON.parse(body);
     const filePath = path.resolve(data.options.output);
-    updateCSS(filePath, data.css);
-  } catch (err) {
-    throw err;
-  }
-}
+    updateCSS({ path: filePath, css: data.css });
+  });
+});
 
 function statusResponse(req, res) {
   res.setHeader("content-type", "application/json");

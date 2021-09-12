@@ -13,12 +13,13 @@
     "dist/*"
   ],
   "scripts": {
-    "build": "wrap",
+    "build": "wrap; chmod +x dist/cli.js",
     "dev:server": "nodemon src/cli.js",
     "dev:bundle": "wrap -w",
     "dev": "concurrently 'yarn:dev:*'",
     "fix": "wrap -f",
-    "size": "GITHUB_TOKEN='' bundlesize"
+    "size": "GITHUB_TOKEN='' bundlesize",
+    "prepublishOnly": "rm -rf dist; npm run build;"
   },
   "wrap": {
     "external": [

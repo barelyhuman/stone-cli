@@ -35,7 +35,6 @@ export function updateCSS(options = { path: "", css: "" }) {
   });
 
   const rules = [...selectors.values()];
-  console.log({ rules });
 
   const writableCSSString = serialize(rules, middleware([prefixer, stringify]));
 

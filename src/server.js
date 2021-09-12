@@ -67,6 +67,7 @@ router.listener.on(REQUEST, () => {
     const data = JSON.parse(body);
     const filePath = path.resolve(data.options.output);
     updateCSS({ path: filePath, css: data.css });
+    res.end();
   });
 });
 
